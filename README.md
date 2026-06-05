@@ -99,23 +99,6 @@ flowchart TD
 - Page `Settings` pour renseigner les tokens dans `sessionStorage`.
 - Aucun token n'est stocke dans le code source.
 
-## Securite
-
-Les tokens d'acces ne doivent jamais etre commits dans le repository.
-
-Dans l'application, ils sont saisis depuis la page **Settings** et conserves uniquement dans `sessionStorage`, donc seulement pour l'onglet courant du navigateur.
-
-Pour une mise en production, il est recommande de remplacer cette logique par un backend securise :
-
-```mermaid
-flowchart LR
-    User[Utilisateur] --> Front[Frontend React]
-    Front --> Backend[Backend securise]
-    Backend --> ManagedIdentity[Managed Identity / Entra ID]
-    Backend --> AzureFoundry[Azure AI Foundry]
-    Backend --> AzureML[Azure Machine Learning]
-```
-
 ## Lancer le Projet
 
 ```powershell
