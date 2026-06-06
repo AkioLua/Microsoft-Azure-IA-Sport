@@ -124,9 +124,6 @@ npm run build
 
 - React
 - TypeScript
-- Vite
-- Tailwind CSS
-- shadcn/ui
 - Azure AI Foundry
 - Azure Machine Learning
 - Microsoft Entra ID pour l'authentification aux ressources Azure
