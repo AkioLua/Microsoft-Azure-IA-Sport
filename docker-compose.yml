@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: ./azure-injury-lab
+      dockerfile: Dockerfile
+
+    image: azure-ml-sport-edge:latest
+
+    container_name: azure-ml-sport-edge
+
+    ports:
+      - "80:80"
+
+    restart: unless-stopped
