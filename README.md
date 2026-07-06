@@ -21,7 +21,7 @@ Le systeme est concu autour de plusieurs agents :
 
 ```mermaid
 flowchart LR
-    U[Utilisateur] --> UI[Application React / Vite]
+    U[Utilisateur] --> Docker[Conteneur Docker\nnginx]
     Docker --> UI[Application React / Vite]
     UI --> Settings[Settings sessionStorage]
     Settings --> Tokens[Token Azure ML + Token Foundry]
