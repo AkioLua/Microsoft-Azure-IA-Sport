@@ -27,7 +27,8 @@ flowchart LR
     Settings --> Tokens[Token Azure ML + Token Foundry]
 
     UI --> Injury[Dashboard Prediction Blessure]
-    Injury --> AML[Endpoint Azure Machine Learning]
+    Injury --> Proxy[nginx proxy /api/score]
+    Proxy --> AML[Endpoint Azure Machine Learning]
     AML --> Score[Score risque blessure]
     Score --> UI
 
