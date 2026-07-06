@@ -22,7 +22,7 @@ Le systeme est concu autour de plusieurs agents :
 ```mermaid
 flowchart LR
     U[Utilisateur] --> UI[Application React / Vite]
-
+    Docker --> UI[Application React / Vite]
     UI --> Settings[Settings sessionStorage]
     Settings --> Tokens[Token Azure ML + Token Foundry]
 
@@ -98,6 +98,7 @@ flowchart TD
 - Chatbot connectable a un workflow Azure AI Foundry.
 - Page `Settings` pour renseigner les tokens dans `sessionStorage`.
 - Aucun token n'est stocke dans le code source.
+- Deploiement local via Docker en une commande (`docker compose up --build`).
 
 ## Lancer le Projet
 
@@ -127,3 +128,4 @@ npm run build
 - Azure AI Foundry
 - Azure Machine Learning
 - Microsoft Entra ID pour l'authentification aux ressources Azure
+- Docker + nginx pour le déploiement Edge local
