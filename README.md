@@ -164,7 +164,7 @@ VISION_KEY=your-vision-key
 
 Le endpoint et la cle sont disponibles dans la ressource Azure AI Vision, sous `Cles et point de terminaison`.
 
-La cle n'est jamais envoyee au navigateur. Le serveur Vite lit le fichier `.env` et transmet les images a Azure depuis le endpoint local `/api/vision/analyze`.
+La cle n'est jamais envoyee au navigateur. En local, Vite lit le fichier `.env` et transmet les images a Azure depuis `/api/vision/analyze`. En Docker, Nginx recoit les memes variables d'environnement et expose le meme endpoint proxy.
 
 Le modele MediaPipe et les fichiers WebAssembly sont conserves dans le projet :
 
@@ -197,6 +197,36 @@ http://localhost:5173
 cd azure-injury-lab
 npm run build
 ```
+
+## Lancer avec Docker
+
+Le projet peut aussi etre build et lance avec Docker. Cette version utilise Nginx pour servir l'application React et pour proxyfier l'appel Azure AI Vision sur `/api/vision/analyze`.
+
+Avant de lancer Docker, verifier que le fichier `azure-injury-lab/.env` existe :
+
+```env
+VISION_ENDPOINT=https://your-vision-resource.cognitiveservices.azure.com
+VISION_KEY=your-vision-key
+```
+
+Depuis la racine du projet :
+
+```powershell
+docker compose up --build
+```
+
+Puis ouvrir :
+
+```text
+http://localhost
+```
+
+Pour lancer le conteneur en arriere-plan :
+
+```powershell
+docker compose up -d --build
+```
+
 
 ## Stack Technique
 
