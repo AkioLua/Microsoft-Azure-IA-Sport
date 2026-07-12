@@ -19,7 +19,7 @@ import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { toast } from "sonner"
 
 import { loadChartData, type ModelData } from "@/data"
-import { VisionPanel } from "@/components/vision-panel"
+import { VisionPanel } from "@/components/vision/vision-panel"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"

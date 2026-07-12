@@ -82,9 +82,9 @@ export function assessSquat(
       torsoInclination,
       advice: [
         detectedPeople === 0
-          ? "Azure Vision n'a confirme aucune personne dans l'image."
-          : `Azure Vision a detecte ${detectedPeople} personnes, alors que MediaPipe n'analyse qu'une pose.`,
-        "Utilise une photo contenant une seule personne et une seule phase du mouvement.",
+          ? "Je n'arrive pas a confirmer clairement la presence d'une personne sur cette photo."
+          : `Je vois ${detectedPeople} personnes sur l'image, donc l'analyse du squat risque de melanger les poses.`,
+        "Essaie avec une photo ou une seule personne est visible, pendant une seule phase du mouvement.",
       ],
     }
   }
@@ -105,8 +105,8 @@ export function assessSquat(
       hipAngle,
       torsoInclination,
       advice: [
-        "Place le corps entier dans l'image, des epaules aux chevilles.",
-        "Utilise une photo nette, bien eclairee et prise de profil.",
+        "Je ne vois pas assez bien les points importants du corps pour donner un avis fiable.",
+        "Reprends une photo nette, de profil, avec le corps entier visible des epaules aux chevilles.",
       ],
     }
   }
@@ -115,25 +115,25 @@ export function assessSquat(
 
   if (kneeAngle > 125) {
     advice.push(
-      `Flexion du genou mesuree a ${Math.round(kneeAngle)} deg : la position semble haute si la photo represente le bas du squat.`
+      `Le genou est mesure a ${Math.round(kneeAngle)} deg : si cette image correspond au bas du squat, la descente semble encore assez haute.`
     )
   } else if (kneeAngle < 70) {
     advice.push(
-      `Flexion du genou mesuree a ${Math.round(kneeAngle)} deg : la position est tres profonde.`
+      `Le genou est mesure a ${Math.round(kneeAngle)} deg : la position est tres profonde, donc il faut surtout verifier que le mouvement reste controle.`
     )
   } else {
     advice.push(
-      `Flexion du genou mesuree a ${Math.round(kneeAngle)} deg, compatible avec une position basse sur cette image.`
+      `Le genou est mesure a ${Math.round(kneeAngle)} deg : la flexion semble coherente pour une position basse de squat.`
     )
   }
 
   if (torsoInclination > 55) {
     advice.push(
-      `Inclinaison du torse mesuree a ${Math.round(torsoInclination)} deg : elle est marquee, mais une photo 2D ne permet pas d'evaluer la neutralite du dos.`
+      `Le torse est incline a ${Math.round(torsoInclination)} deg : la penchee est importante, donc il faut verifier que le dos reste stable pendant le mouvement.`
     )
   } else {
     advice.push(
-      `Inclinaison du torse mesuree a ${Math.round(torsoInclination)} deg sur le plan de l'image.`
+      `Le torse est incline a ${Math.round(torsoInclination)} deg : l'inclinaison parait raisonnable sur cette image.`
     )
   }
 
