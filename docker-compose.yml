@@ -3,6 +3,10 @@ services:
     build:
       context: ./azure-injury-lab
       dockerfile: Dockerfile
+    env_file:
+      - ./azure-injury-lab/.env
+    environment:
+      NGINX_ENVSUBST_FILTER: "^VISION_"
 
     image: azure-ml-sport-edge:latest
 

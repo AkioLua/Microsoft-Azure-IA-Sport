@@ -6,10 +6,12 @@ import {
   ClipboardTextIcon,
   DatabaseIcon,
   GaugeIcon,
+  ImageIcon,
   KeyIcon,
   LightningIcon,
   PaperPlaneTiltIcon,
   PlayIcon,
+  ScanIcon,
   ShieldCheckIcon,
   WarningCircleIcon,
 } from "@phosphor-icons/react"
@@ -17,6 +19,7 @@ import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { toast } from "sonner"
 
 import { loadChartData, type ModelData } from "@/data"
+import { VisionPanel } from "@/components/vision/vision-panel"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -251,7 +254,7 @@ const outputFields = [
 ] satisfies Array<[keyof AzureScoreRow, string]>
 
 type SurfaceView = "inference" | "evaluation" | "history" | "schema"
-type ActiveApp = "injury" | "coach" | "settings"
+type ActiveApp = "injury" | "vision" | "coach" | "settings"
 
 type CoachMessage = {
   id: string
@@ -351,6 +354,17 @@ function AppSidebar({
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton
+                  isActive={activeApp === "vision"}
+                  tooltip="Analyse de posture"
+                  onClick={() => onAppChange("vision")}
+                >
+                  <ScanIcon />
+                  <span>Analyse de posture</span>
+                </SidebarMenuButton>
+                <SidebarMenuBadge>Vision</SidebarMenuBadge>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
                   isActive={activeApp === "coach"}
                   tooltip="Sport Coach Agent IA"
                   onClick={() => onAppChange("coach")}
@@ -390,6 +404,20 @@ function AppSidebar({
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ) : activeApp === "vision" ? (
+          <SidebarGroup>
+            <SidebarGroupLabel>Computer Vision</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton isActive tooltip="Analyse d'image">
+                    <ImageIcon />
+                    <span>Analyse d'image</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
@@ -1372,6 +1400,8 @@ function App() {
 
         {injuryContent}
       </>
+    ) : activeApp === "vision" ? (
+      <VisionPanel />
     ) : activeApp === "coach" ? (
       <CoachPanel
         prompt={coachPrompt}
@@ -1411,6 +1441,8 @@ function App() {
             <h1 className="truncate text-base font-semibold">
               {activeApp === "injury"
                 ? "Azure ML Injury Dashboard"
+                : activeApp === "vision"
+                  ? "Analyse de posture"
                 : activeApp === "coach"
                   ? "Sport Coach Agent IA"
                   : "Settings"}
@@ -1418,6 +1450,8 @@ function App() {
             <p className="truncate text-sm text-muted-foreground">
               {activeApp === "injury"
                 ? `${SERVICE_ID} - ${MODEL_ID}`
+                : activeApp === "vision"
+                  ? "Azure AI Vision - analyse d'image"
                 : activeApp === "coach"
                   ? "Assistant de coaching sportif"
                   : "Tokens de session"}
@@ -1425,7 +1459,9 @@ function App() {
           </div>
           <Badge
             variant={
-              activeApp === "coach"
+              activeApp === "vision"
+                ? "secondary"
+                : activeApp === "coach"
                 ? "outline"
                 : activeApp === "settings"
                   ? "secondary"
@@ -1434,7 +1470,9 @@ function App() {
                     : "destructive"
             }
           >
-            {activeApp === "coach"
+            {activeApp === "vision"
+              ? "Vision configuree"
+              : activeApp === "coach"
               ? sessionCredentials.workflowToken
                 ? "Workflow pret"
                 : "Token workflow"
